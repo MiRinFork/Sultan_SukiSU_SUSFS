@@ -51,8 +51,6 @@ jobs:
 
           echo "CONFIG set to: $CONFIG"
 
- 
-
       - name: Clone AnyKernel3 and Other Dependencies
         run: |
           echo "Cloning AnyKernel3 and other dependencies..."
@@ -181,7 +179,7 @@ jobs:
             export KCFLAGS="-march=armv8.6-a -O3 --param=min-pagesize=0"
           fi
           make ${{ inputs.codename }}_defconfig -j$(nproc --all) 
-          make -j$(nproc --all) 
+          make -j$(nproc --all)
 
       - name: Copy Images
         run: |
@@ -203,7 +201,7 @@ jobs:
           cd ./AnyKernel3
 
           # Zip the files in the AnyKernel3 directory with a new naming convention
-          ZIP_NAME="${{ inputs.codename }}_A15_Sultan_Next_SUSFS.zip"
+          ZIP_NAME="${{ inputs.codename }}.zip"
           echo "Creating zip file $ZIP_NAME..."
           zip -r "../$ZIP_NAME" ./*
 
