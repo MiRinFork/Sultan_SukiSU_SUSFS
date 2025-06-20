@@ -51,7 +51,7 @@ jobs:
     env:
       REPO_OWNER: TheWildJames
       REPO_NAME: Sultan_KernelSU_SUSFS
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
       RELEASE_NAME: "*TEST BUILD* Sultan Kernels With KernelSU Next & SUSFS v1.5.7 *TEST BUILD*"
       RELEASE_NOTES: |
         This release contains KernelSU Next and SUSFS v1.5.7
@@ -112,7 +112,7 @@ jobs:
           release_name: ${{ env.RELEASE_NAME }}  # Pass the RELEASE_NAME to the action
           body: ${{ env.RELEASE_NOTES }}  # Pass the RELEASE_NOTES to the action
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
 
       - name: Upload Release Assets Dynamically
         run: |
@@ -128,7 +128,7 @@ jobs:
               gh release upload ${{ env.NEW_TAG }} "$file"
           done
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
           NEW_TAG: ${{ env.NEW_TAG }}
 
 
