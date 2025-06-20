@@ -22,10 +22,7 @@ on:
 jobs:
   build-kernel-sultan-kernelsu-susfs:
     runs-on: ubuntu-latest
-    env:
-      CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
-      CCACHE_NOHASHDIR: "true"
-      CCACHE_HARDLINK: "true"
+
     steps:
       # - name: Maximize Build Space
       #   uses: AdityaGarg8/remove-unwanted-software@v5
@@ -54,34 +51,7 @@ jobs:
 
           echo "CONFIG set to: $CONFIG"
 
-            # Install ccache
-      - name: Install ccache
-        run: sudo apt update && sudo apt upgrade -y && sudo apt install -y ccache python3 git curl
-
-      - name: Set up ccache
-        run: |
-          mkdir -p ~/.cache/bazel # Ensure the directory exists
-          ccache --version
-          ccache --max-size=2G
-          ccache --set-config=compression=true
-          echo "CCACHE_DIR=$HOME/.ccache" >> $GITHUB_ENV
-
-      - name: Restore ccache from cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.ccache
-          key: ${{ inputs.android_version }}-${{ inputs.kernel_version }}-${{ inputs.sub_level }}-ccache-${{ github.sha }}
-          restore-keys: |
-            ${{ inputs.android_version }}-${{ inputs.kernel_version }}-${{ inputs.sub_level }}-ccache-
-
-      - name: Cache toolchain
-        id: cache-toolchain
-        uses: actions/cache@v4
-        with:
-          path: |
-            kernel-build-tools
-            mkbootimg
-          key: toolchain-${{ runner.os }}-v1
+ 
 
       - name: Clone AnyKernel3 and Other Dependencies
         run: |
@@ -210,8 +180,8 @@ jobs:
           if [ "${{ inputs.codename }}" == "zumapro" ]; then
             export KCFLAGS="-march=armv8.6-a -O3 --param=min-pagesize=0"
           fi
-          make ${{ inputs.codename }}_defconfig -j$(nproc --all) CC='/usr/bin/ccache gcc'
-          make -j$(nproc --all) CC='/usr/bin/ccache gcc'
+          make ${{ inputs.codename }}_defconfig -j$(nproc --all) 
+          make -j$(nproc --all) 
 
       - name: Copy Images
         run: |
