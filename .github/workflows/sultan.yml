@@ -91,7 +91,7 @@ jobs:
           # Change to common directory and apply SUSFS patch
           cd ..
           patch -p1 < 50_add_susfs_in_gki-${{ inputs.android_version }}-${{ inputs.kernel_version }}.patch || true
-          cp ../kernel_patches/sultan/sys.c_fix.patch ./
+          cp ./kernel_patches/sultan/sys.c_fix.patch ./
           patch -p1 --fuzz=3 < sys.c_fix.patch
 
       - name: Apply KSU Hooks
@@ -99,8 +99,8 @@ jobs:
           echo "Changing to configuration directory: $CONFIG..."
           cd "$CONFIG"
           # Apply additional patch
-          cp ../kernel_patches/next/syscall_hooks.patch ./
-          patch -p1 --fuzz=3 < ./syscall_hooks.patch
+            cp ../SukiSU_patch/hooks/syscall_hooks.patch ./
+            patch -p1 -F 3 < syscall_hooks.patch
 
       - name: Apply Hide Stuff Patches
         run: |
@@ -108,8 +108,8 @@ jobs:
           cd "$CONFIG"
           # Apply additional patch
             echo "Applying hooks for SukiSU..."
-            cp ../SukiSU_patch/hooks/syscall_hooks.patch ./
-            patch -p1 -F 3 < syscall_hooks.patch
+            cp ../SukiSU_patch/69_hide_stuff.patch ./
+            patch -p1 -F 3 < 69_hide_stuff.patch
 
       - name: Add SUSFS Configuration Settings
         run: |
