@@ -63,9 +63,9 @@ jobs:
           echo "Using branch for SUSFS: $SUSFS_BRANCH"
 
           # Clone repositories using the branch names
-          git clone https://github.com/ShirkNeko/susfs4ksu.git -b "$SUSFS_BRANCH"
+          git clone https://gitlab.com/simonpunk/susfs4ksu.git -b "$SUSFS_BRANCH"
           cd susfs4ksu
-          git checkout a4ad7c95da0dddc67ca9661dae0ef83da7464714
+          git checkout b5c3ada461a61c6ad033693b7a00494ead3a28fd
           cd ..
           git clone https://github.com/ShirkNeko/SukiSU_patch.git
           git clone https://github.com/MiRinChan/AnyKernel3.git -b "$ANYKERNEL_BRANCH"
